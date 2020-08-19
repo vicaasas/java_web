@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+
+
+    <canvas id="myCanvas" width="578" height="200"></canvas>
+    <canvas id="asd" width="578" height="200"></canvas>
+    <button id="download">download</button>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        // draw a blue cloud
+        context.beginPath();
+        context.moveTo(170, 80);
+        context.bezierCurveTo(130, 100, 130, 150, 230, 150);
+        context.bezierCurveTo(250, 180, 320, 180, 340, 150);
+        context.bezierCurveTo(420, 150, 420, 120, 390, 100);
+        context.bezierCurveTo(430, 40, 370, 30, 340, 50);
+        context.bezierCurveTo(320, 5, 250, 20, 250, 50);
+        context.bezierCurveTo(200, 5, 150, 20, 170, 80);
+        context.closePath();
+        context.lineWidth = 5;
+        context.fillStyle = '#8ED6FF';
+        context.fill();
+        context.strokeStyle = 'orange';
+        context.stroke();
+
+
+        var canvas1 = document.getElementById('asd');
+        var context1 = canvas1.getContext('2d');
+        context1.strokeStyle = 'rgb(0,0,0)';
+        context1.beginPath();
+        context1.lineTo(50, 102);
+        context1.lineTo(1000, 1020);
+        context1.stroke();
+
+        download.addEventListener("click", function() {
+        // only jpeg is supported by jsPDF
+        var imgData = canvas.toDataURL("image/jpg", 1.0);
+        var pdf = new jsPDF('l', 'cm', [25.4, 19.05]);
+
+        pdf.addImage(imgData, 'JPG', 10, 0);
+
+        // pdf.addPage();
+        // pdf.addImage(imgData, 'JPG', 0, 0);
+
+        // pdf.addPage();
+        // pdf.addImage(imgData, 'JPG', 0, 0);
+
+        // pdf.addPage();
+        // pdf.addImage(imgData, 'JPG', 0, 0);
+
+        var imgData = canvas1.toDataURL("image/jpg", 1.0);
+        //pdf.addPage();
+        pdf.addImage(imgData, 'JPG', 0, 0);
+
+        pdf.save("download.pdf");
+        }, false);
+    </script>
+</body>
+</html>
